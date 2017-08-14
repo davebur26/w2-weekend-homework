@@ -70,6 +70,12 @@ attr_writer(:guestlist, :room_tab, :room_cash_available)
     temp_guest_kitty = 0
     guestlist.each{|guest| temp_guest_kitty += guest.cash }
     room_cash_available += proposed_amount if temp_guest_kitty >= proposed_amount
+
+    #create drinks list
+    #guest request drink
+    #check if enough money
+    #remove money if enough else deny transaction
+
   end
 
 
