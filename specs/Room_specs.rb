@@ -35,7 +35,7 @@ class RoomTest < MiniTest::Test
   end
 
   def test_add_guests_to_guestlist
-    room1 = Room.new(1,3)
+    room4 = Room.new(4,3)
     guest1 = Guest.new("David",10)
     guest2 = Guest.new("Tom",3)
     guest3 = Guest.new("Terry",11)
@@ -43,11 +43,13 @@ class RoomTest < MiniTest::Test
 
     guestlist = [guest1, guest2, guest3, guest4]
 
-    room1_guestlist = room1.add_guests_to_guestlist(guestlist,room1.capacity)
+    # room4.remove_guest_from_guestlist("all")
+
+    room4_guestlist = room4.add_guests_to_guestlist(guestlist,room4)
 
     # assert_equal(2,room1.guestlist.length)
-    assert_equal("David",room1.guestlist[0].name)
-    assert_equal(12,room1.guestlist[2].cash)
+    assert_equal("David",room4.guestlist[0].name)
+    assert_equal(6,room4.guestlist[2].cash)
     # assert_equal("Tom",room1.guestlist[1].name)
     # assert_equal("Terry",room1_guestlist[2].name)
   end
@@ -88,29 +90,54 @@ class RoomTest < MiniTest::Test
   end
 
   def test_enough_cash
+    room3 = Room.new(3,2)
     guest1 = Guest.new("David",12)
     guest2 = Guest.new("Tom",5)
     guest3 = Guest.new("Terry",8)
     guestlist = [guest1, guest2, guest3]
 
-    room1.enough_cash(guestlist)
 
-    assert_equal(2, room1.guestlist.length)
-    assert_equal(12, room1.guestlist[0].cash)
+
+    room3.enough_cash(guestlist)
+
+    assert_equal(2, room3.guestlist.length)
+    assert_equal(12, room3.guestlist[0].cash)
   end
 
   def test_fav_song
+    room1 = Room.new(1,2)
     guest1 = Guest.new("David",12,"Porcelin","Moby")
-    guest1 = Guest.new("David",12)
+    guest2 = Guest.new("David",12)
     song1 = Song.new("Munich","Editors")
     song2 = Song.new("Porcelin","Moby")
 
     guestlist = [guest1, guest2]
     playlist = [song1, song2]
 
-    room1.fav_song(guestlist,playlist)
+    fav_song = room1.fav_song(guestlist,playlist)
 
-    assert_equal("Porcelin",)
+    assert_equal("This is my favourite song",fav_song)
+  end
+
+  def test_total_cash_in_room
+    room1 = Room.new(1,2)
+    guest1 = Guest.new("David",12)
+    guest2 = Guest.new("Tom",5)
+    guest3 = Guest.new("Terry",8)
+
+    guestlist = [guest1, guest2, guest3]
+
+# clear room
+    room1.remove_guest_from_guestlist("all")
+# add guests
+    room1.add_guests_to_guestlist(guestlist,room1.capacity)
+
+
+    room1.add_guest_cash_to_room(8)
+    assert_equal(8, room1.room_cash_available)
+
+end
+
 
 
 
